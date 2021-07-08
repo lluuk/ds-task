@@ -1,15 +1,17 @@
 <template>
-  <el-header class="header">
-    <img alt="Vue logo" src="@/assets/logo.png" class="logo" />
-    <div>
-      <router-link
-        v-for="link in links"
-        :to="link.path"
-        :key="link.path"
-        class="link"
-      >
-        {{ link.name }}
-      </router-link>
+  <el-header class="header" height="auto">
+    <div class="header__content">
+      <img alt="Vue logo" src="@/assets/logo.png" class="logo" />
+      <div>
+        <router-link
+          v-for="link in links"
+          :to="link.path"
+          :key="link.path"
+          class="link"
+        >
+          {{ link.name }}
+        </router-link>
+      </div>
     </div>
   </el-header>
 </template>
@@ -50,10 +52,16 @@ export default defineComponent({
 
 <style scoped lang="scss">
 .header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #f2f6fc;
+  padding: 10px 20px;
+  background: $color-light-gray;
+
+  &__content {
+    max-width: $container-max-width;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 auto;
+  }
 }
 
 .logo {
@@ -67,8 +75,10 @@ export default defineComponent({
   color: $color-primary;
   text-decoration: none;
 
-  &:hover {
+  &:hover,
+  &.router-link-active {
     color: $color-blue;
+    text-decoration: underline;
   }
 
   &:not(:last-of-type) {
