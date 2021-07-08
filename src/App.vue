@@ -1,18 +1,19 @@
 <template>
-  <el-container>
+  <el-container direction="vertical">
     <the-header />
     <el-main>
       <router-view />
     </el-main>
-    <el-footer>Footer</el-footer>
+    <the-footer />
   </el-container>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
-import { ElContainer, ElMain, ElFooter } from "element-plus";
+import { ElContainer, ElMain } from "element-plus";
 import TheHeader from "@/components/layout/TheHeader.vue";
+import TheFooter from "@/components/layout/TheFooter.vue";
 
 export default defineComponent({
   name: "App",
@@ -20,17 +21,7 @@ export default defineComponent({
     ElContainer,
     TheHeader,
     ElMain,
-    ElFooter,
+    TheFooter,
   },
 });
 </script>
-
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-</style>
