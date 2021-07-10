@@ -1,7 +1,7 @@
 <template>
   <el-container direction="vertical">
     <the-header />
-    <el-main>
+    <el-main class="main">
       <router-view />
     </el-main>
     <the-footer />

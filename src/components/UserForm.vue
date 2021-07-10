@@ -1,0 +1,167 @@
+<template>
+  <el-form :model="form" :rules="rules" ref="formRef" label-position="top">
+    <el-form-item label="Avatar" required prop="avatar">
+      <img-uploader :image="form.avatar" @update-img="handleAvatarChange" />
+    </el-form-item>
+    <el-form-item label="First name" required prop="firstName">
+      <el-input v-model="form.firstName" placeholder="John" />
+    </el-form-item>
+    <el-form-item label="Last name" required prop="lastName">
+      <el-input v-model="form.lastName" placeholder="Doe" />
+    </el-form-item>
+    <el-form-item label="Email" required prop="email">
+      <el-input v-model="form.email" placeholder="john.doe@example.com" />
+    </el-form-item>
+    <el-form-item label="Phone number" required prop="phone">
+      <el-input v-model="form.phone" placeholder="123456789" />
+    </el-form-item>
+    <el-form-item label="Birthday" required prop="birthday">
+      <el-date-picker
+        v-model="form.birthday"
+        type="date"
+        placeholder="YYYY-MM-DD"
+        :disabled-date="disabledDate"
+      />
+    </el-form-item>
+    <el-form-item label="About">
+      <el-input
+        v-model="form.about"
+        type="textarea"
+        placeholder="Tell us about yourself"
+        maxlength="200"
+        show-word-limit
+      />
+    </el-form-item>
+    <el-form-item>
+      <el-button @click="onSubmit">Submit</el-button>
+    </el-form-item>
+  </el-form>
+</template>
+
+<script lang="ts">
+import { defineComponent, reactive, ref, toRaw } from "vue";
+import { useRouter } from "vue-router";
+
+import {
+  ElForm,
+  ElFormItem,
+  ElInput,
+  ElButton,
+  ElDatePicker,
+  ElNotification,
+} from "element-plus";
+
+import ImgUploader from "@/components/ImgUploader.vue";
+
+import { emailValidator, phoneValidator } from "@/utils/utils";
+
+interface Form {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  birthday: string;
+  about: string;
+  avatar: string;
+}
+
+export default defineComponent({
+  name: "UserForm",
+  components: {
+    ElForm,
+    ElFormItem,
+    ElInput,
+    ElButton,
+    ElDatePicker,
+    ImgUploader,
+  },
+
+  setup() {
+    const formRef = ref();
+    const router = useRouter();
+    const form = reactive<Form>({
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      birthday: "",
+      about: "",
+      avatar: "",
+    });
+
+    const rules = {
+      avatar: [
+        {
+          required: true,
+          message: "Please upload avatar photo",
+          trigger: "change",
+        },
+      ],
+      firstName: [
+        {
+          required: true,
+          message: "Please input your first name",
+          trigger: "blur",
+        },
+      ],
+      lastName: [
+        {
+          required: true,
+          message: "Please input your last name",
+          trigger: "blur",
+        },
+      ],
+      email: [
+        {
+          validator: emailValidator,
+          trigger: "blur",
+        },
+      ],
+      phone: [
+        {
+          validator: phoneValidator,
+          trigger: "blur",
+        },
+      ],
+      birthday: [
+        {
+          type: "date",
+          required: true,
+          message: "Please pick a date",
+          trigger: "blur",
+        },
+      ],
+    };
+
+    const disabledDate = (time: { getTime: () => number }): boolean =>
+      time.getTime() > Date.now();
+
+    const handleAvatarChange = (img: string): void => {
+      form.avatar = img;
+    };
+
+    const onSubmit = () => {
+      formRef.value.validate((valid: boolean) => {
+        if (!valid) {
+          ElNotification({
+            title: "Error",
+            message: "The form couldn't be saved",
+          });
+          return false;
+        }
+        window.sessionStorage.setItem("form", JSON.stringify(toRaw(form)));
+        router.push({ name: "Profile" });
+      });
+    };
+
+    return {
+      form,
+      formRef,
+      rules,
+      disabledDate,
+      onSubmit,
+      handleAvatarChange,
+    };
+  },
+});
+</script>
