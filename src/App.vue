@@ -1,5 +1,5 @@
 <template>
-  <el-container direction="vertical">
+  <el-container direction="vertical" class="page-container">
     <the-header />
     <el-main class="main">
       <router-view />
@@ -25,3 +25,9 @@ export default defineComponent({
   },
 });
 </script>
+
+<style lang="scss" scoped>
+.page-container {
+  min-height: 100vh;
+}
+</style>

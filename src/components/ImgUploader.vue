@@ -47,7 +47,7 @@ export default defineComponent({
     maxSizeInMb: {
       type: Number,
       default: 2,
-    }
+    },
   },
   components: {
     ElUpload,

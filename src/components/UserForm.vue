@@ -54,16 +54,8 @@ import {
 import ImgUploader from "@/components/ImgUploader.vue";
 
 import { emailValidator, phoneValidator } from "@/utils/utils";
-
-interface Form {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  birthday: string;
-  about: string;
-  avatar: string;
-}
+import { sessionFormKey } from "@/utils/consts";
+import { Form } from "@/types";
 
 export default defineComponent({
   name: "UserForm",
@@ -80,13 +72,13 @@ export default defineComponent({
     const formRef = ref();
     const router = useRouter();
     const form = reactive<Form>({
+      avatar: "",
       firstName: "",
       lastName: "",
       email: "",
       phone: "",
       birthday: "",
       about: "",
-      avatar: "",
     });
 
     const rules = {
@@ -149,7 +141,16 @@ export default defineComponent({
           });
           return false;
         }
-        window.sessionStorage.setItem("form", JSON.stringify(toRaw(form)));
+
+        window.sessionStorage.setItem(
+          sessionFormKey,
+          JSON.stringify(toRaw(form))
+        );
+        ElNotification({
+          type: "success",
+          title: "Success",
+          message: "The form has been saved",
+        });
         router.push({ name: "Profile" });
       });
     };

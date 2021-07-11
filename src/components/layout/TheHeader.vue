@@ -69,20 +69,4 @@ export default defineComponent({
   max-height: 50px;
   width: auto;
 }
-
-.link {
-  font-weight: 500;
-  color: $color-primary;
-  text-decoration: none;
-
-  &:hover,
-  &.router-link-active {
-    color: $color-blue;
-    text-decoration: underline;
-  }
-
-  &:not(:last-of-type) {
-    margin-right: 15px;
-  }
-}
 </style>
