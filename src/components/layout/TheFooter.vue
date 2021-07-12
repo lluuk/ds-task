@@ -34,6 +34,7 @@ export default defineComponent({
 
   &__content {
     max-width: $container-max-width;
+    margin: 0 auto;
   }
 
   &__text {
