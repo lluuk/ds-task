@@ -1,11 +1,14 @@
 import { VALID_EMAIL_REGEXP } from "@/utils/consts";
 
-const validateEmail = (email: string): boolean => {
+export const validateEmail = (email: string): boolean => {
   const re = VALID_EMAIL_REGEXP;
   return re.test(email.toLowerCase());
 };
 
-const validatePhoneNumber = (phone: string, numberOfDigits = 9): boolean => {
+export const validatePhoneNumber = (
+  phone: string,
+  numberOfDigits = 9
+): boolean => {
   return !!(phone.match(/\d/g)?.length === numberOfDigits);
 };
 
