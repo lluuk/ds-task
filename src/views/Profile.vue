@@ -2,11 +2,11 @@
   <div class="user-profile">
     <h1>User Profile</h1>
     <section>
-      <div v-if="form" class="form-container">
+      <div v-if="form" class="form-container" data-testid="user-data">
         <user-data ref="data" :form="form" />
       </div>
       <template v-else>
-        <el-empty description="No data">
+        <el-empty description="No data" data-testid="data-empty-placeholder">
           <p>
             To see the data you should first fill out the
             <router-link to="/" class="link">form</router-link>

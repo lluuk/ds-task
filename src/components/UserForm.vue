@@ -1,21 +1,46 @@
 <template>
   <el-form :model="form" :rules="rules" ref="formRef" label-position="top">
     <el-form-item label="Avatar" required prop="avatar">
-      <img-uploader :image="form.avatar" @update-img="handleAvatarChange" />
+      <img-uploader
+        data-testid="img-uploader"
+        :image="form.avatar"
+        @update-img="handleAvatarChange"
+      />
     </el-form-item>
     <el-form-item label="First name" required prop="firstName">
-      <el-input v-model="form.firstName" placeholder="John" />
+      <el-input
+        data-testid="firstName-input"
+        v-model="form.firstName"
+        placeholder="John"
+      />
     </el-form-item>
     <el-form-item label="Last name" required prop="lastName">
-      <el-input v-model="form.lastName" placeholder="Doe" />
+      <el-input
+        data-testid="lastName-input"
+        v-model="form.lastName"
+        placeholder="Doe"
+      />
     </el-form-item>
     <el-form-item label="Email" required prop="email">
-      <el-input v-model="form.email" placeholder="john.doe@example.com" />
+      <el-input
+        data-testid="email-input"
+        v-model="form.email"
+        placeholder="john.doe@example.com"
+      />
     </el-form-item>
     <el-form-item label="Phone number" required prop="phone">
-      <el-input v-model="form.phone" placeholder="123456789" />
+      <el-input
+        data-testid="phone-input"
+        v-model="form.phone"
+        placeholder="123456789"
+      />
     </el-form-item>
-    <el-form-item label="Birthday" required prop="birthday">
+    <el-form-item
+      label="Birthday"
+      required
+      prop="birthday"
+      data-testid="birthday-input"
+    >
       <el-date-picker
         v-model="form.birthday"
         type="date"
@@ -25,6 +50,7 @@
     </el-form-item>
     <el-form-item label="About">
       <el-input
+        data-testid="about-input"
         v-model="form.about"
         type="textarea"
         placeholder="Tell us about yourself"
@@ -33,7 +59,7 @@
       />
     </el-form-item>
     <el-form-item>
-      <el-button @click="onSubmit">Submit</el-button>
+      <el-button data-testid="submit-btn" @click="onSubmit">Submit</el-button>
     </el-form-item>
   </el-form>
 </template>
