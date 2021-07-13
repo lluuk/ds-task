@@ -1,34 +1,34 @@
 <template>
   <el-form :model="form" :rules="rules" ref="formRef" label-position="top">
-    <el-form-item label="Avatar" required prop="avatar">
+    <el-form-item :label="formKeys.avatar" required prop="avatar">
       <img-uploader
         data-testid="img-uploader"
         :image="form.avatar"
         @update-img="handleAvatarChange"
       />
     </el-form-item>
-    <el-form-item label="First name" required prop="firstName">
+    <el-form-item :label="formKeys.firstName" required prop="firstName">
       <el-input
         data-testid="firstName-input"
         v-model="form.firstName"
         placeholder="John"
       />
     </el-form-item>
-    <el-form-item label="Last name" required prop="lastName">
+    <el-form-item :label="formKeys.lastName" required prop="lastName">
       <el-input
         data-testid="lastName-input"
         v-model="form.lastName"
         placeholder="Doe"
       />
     </el-form-item>
-    <el-form-item label="Email" required prop="email">
+    <el-form-item :label="formKeys.email" required prop="email">
       <el-input
         data-testid="email-input"
         v-model="form.email"
         placeholder="john.doe@example.com"
       />
     </el-form-item>
-    <el-form-item label="Phone number" required prop="phone">
+    <el-form-item :label="formKeys.phone" required prop="phone">
       <el-input
         data-testid="phone-input"
         v-model="form.phone"
@@ -36,7 +36,7 @@
       />
     </el-form-item>
     <el-form-item
-      label="Birthday"
+      :label="formKeys.birthday"
       required
       prop="birthday"
       data-testid="birthday-input"
@@ -48,7 +48,7 @@
         :disabled-date="disabledDate"
       />
     </el-form-item>
-    <el-form-item label="About">
+    <el-form-item :label="formKeys.about">
       <el-input
         data-testid="about-input"
         v-model="form.about"
@@ -80,7 +80,7 @@ import {
 import ImgUploader from "@/components/ImgUploader.vue";
 
 import { emailValidator, phoneValidator } from "@/utils/utils";
-import { sessionFormKey } from "@/utils/consts";
+import { sessionFormKey, MAPPED_FORM_KEYS } from "@/utils/consts";
 import { Form } from "@/types";
 
 export default defineComponent({
@@ -95,6 +95,7 @@ export default defineComponent({
   },
 
   setup() {
+    const formKeys = MAPPED_FORM_KEYS;
     const formRef = ref();
     const router = useRouter();
     const form = reactive<Form>({
@@ -182,6 +183,7 @@ export default defineComponent({
     };
 
     return {
+      formKeys,
       form,
       formRef,
       rules,

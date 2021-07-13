@@ -3,7 +3,7 @@
     <el-descriptions-item
       v-for="(value, name) in form"
       :key="name"
-      :label="name"
+      :label="formKeys[name]"
     >
       <el-avatar
         class="avatar"
@@ -31,6 +31,8 @@ import { defineComponent, PropType, computed } from "vue";
 import { ElDescriptions, ElDescriptionsItem, ElAvatar } from "element-plus";
 
 import { Form } from "@/types";
+
+import { MAPPED_FORM_KEYS } from "@/utils/consts";
 
 type colSize = number | string;
 
@@ -61,8 +63,10 @@ export default defineComponent({
   },
 
   setup(props) {
+    const formKeys = MAPPED_FORM_KEYS;
     const adjustedDate = computed(() => props.form.birthday.split("T")[0]);
     return {
+      formKeys,
       adjustedDate,
     };
   },
